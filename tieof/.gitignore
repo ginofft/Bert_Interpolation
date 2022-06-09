@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__
+.pytest_cache
+venv
+.idea
+# *.png
+*.log
+*.txt
+# *.csv
+*.sh
+octave-workspace
+.vscode
