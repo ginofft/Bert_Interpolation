@@ -39,7 +39,7 @@ class DINEOF3(BaseEstimator):
         self.tensor_shape = tensor_shape
         self.with_energy = with_energy
         self.lat_lon_sep_centering = lat_lon_sep_centering
-        self.mask = np.load(mask).astype(bool) if mask is not None else np.ones(tensor_shape, type=bool)
+        self.mask = np.load(mask).astype(bool) if mask is not None else np.ones(tensor_shape, dtype=bool)
         self.inverse_mask = ~self.mask
         self.early_stopping = early_stopping
 
@@ -66,8 +66,8 @@ class DINEOF3(BaseEstimator):
             tensor, *means = utils.center_3d_tensor(tensor, lat_lon_separately=self.lat_lon_sep_centering)
 
         # Initial guess
-        nan_mask = np.logical_and(np.isnan(tensor), self.mask[:, :, None])
-        non_nan_mask = np.logical_and(~nan_mask, self.mask[:, :, None])
+        nan_mask = np.logical_and(np.isnan(tensor), self.mask)
+        non_nan_mask = np.logical_and(~nan_mask, self.mask)
         tensor[nan_mask] = 0
         tensor[self.inverse_mask] = 0  # Outside of an investigated area everything is considered to be zero
 
